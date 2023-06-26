@@ -19,7 +19,7 @@ class CreateUserController {
 
     const createUserUseCase = container.resolve(CreateUserUseCase);
 
-    await createUserUseCase.execute({
+    const createUser = await createUserUseCase.execute({
       name,
       email,
       confirmEmail,
@@ -29,7 +29,7 @@ class CreateUserController {
       birthDate,
     });
 
-    return response.status(201).json();
+    return response.status(201).json(createUser);
   }
 }
 
