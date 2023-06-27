@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
-import { RequestUser } from "@/modules/users/dtos/users";
+import { IRequestCreateUser } from "@/modules/users/dtos/users";
 
 import { CreateUserUseCase } from "./createUserUseCase";
 
@@ -15,7 +15,7 @@ class CreateUserController {
       confirmPassword,
       telephone,
       birthDate,
-    } = request.body as RequestUser;
+    } = request.body as IRequestCreateUser;
 
     const createUserUseCase = container.resolve(CreateUserUseCase);
 

@@ -3,7 +3,7 @@ import { inject, injectable } from "tsyringe";
 import { IUsersRepositories } from "@/modules/users/iRepositories/IUsersRepositories";
 import { IUuidProvider } from "@/shared/container/providers/uuidProvider/IUuidProvider";
 
-import { RequestUser } from "@/modules/users/dtos/users";
+import { IRequestCreateUser } from "@/modules/users/dtos/users";
 
 import { IBcryptProvider } from "@/shared/container/providers/bcryptProvider/IBcryptProvider";
 import { TelephoneFormat } from "@/utils/formatData";
@@ -29,7 +29,7 @@ class CreateUserUseCase {
     confirmPassword,
     telephone,
     birthDate,
-  }: RequestUser): Promise<AppResponse> {
+  }: IRequestCreateUser): Promise<AppResponse> {
     if (
       !password.match(
         /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
@@ -73,7 +73,7 @@ class CreateUserUseCase {
       name,
       email,
       telephone: formatTelephone,
-      birth_date: birthDate,
+      birthDate,
       password: passwordHash.hash,
     });
 
