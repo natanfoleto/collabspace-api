@@ -1,6 +1,6 @@
-import { prisma } from "../../../libs/prismaClient";
-import { Users, CreateUser } from "../dtos/users";
-import { IUsersRepositories } from "../iRepositories/IUsersRepositories";
+import { prisma } from "@/libs/prismaClient";
+import { Users, CreateUser } from "@/modules/users/dtos/users";
+import { IUsersRepositories } from "@/modules/users/iRepositories/IUsersRepositories";
 
 class UsersRepository implements IUsersRepositories {
   create(user: CreateUser): Promise<Users> {

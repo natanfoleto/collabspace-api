@@ -9,7 +9,7 @@ import "./container";
 
 import { router } from "@/routes";
 
-import { AppError } from "../helper/errorsHandler";
+import { AppError } from "@/helper/errorsHandler";
 
 dotenv.config();
 

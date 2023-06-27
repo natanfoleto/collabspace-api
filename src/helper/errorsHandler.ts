@@ -1,17 +1,17 @@
 interface IAppError {
-	statusCode?: number;
-	result: 'error' | 'success';
-	message?: string;
+  statusCode?: number;
+  result: "error" | "success";
+  message?: string;
 }
 
 export class AppError {
-	public readonly statusCode: number;
-	public readonly result: string;
-	public readonly message: string | undefined;
+  public readonly statusCode: number;
+  public readonly result: string;
+  public readonly message: string | undefined;
 
-	constructor({ statusCode = 400, result, message }: IAppError) {
-		this.statusCode = statusCode;
-		this.result = result;
-		this.message = message;
-	}
+  constructor({ statusCode = 400, result, message }: IAppError) {
+    this.statusCode = statusCode;
+    this.result = result;
+    this.message = message;
+  }
 }
