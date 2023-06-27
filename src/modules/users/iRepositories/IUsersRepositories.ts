@@ -5,6 +5,7 @@ interface IUsersRepositories {
   listByEmail(email: string): Promise<IUsers | null>;
   listById(id: string): Promise<IUsers | null>;
   update(data: IUpdateUser): Promise<void>;
+  inactivate(id: string, status: boolean): Promise<void>;
 }
 
 export { IUsersRepositories };
