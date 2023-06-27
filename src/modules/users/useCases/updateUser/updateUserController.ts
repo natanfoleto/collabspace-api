@@ -12,14 +12,14 @@ class UpdateUserController {
 
     const updateUserUseCase = container.resolve(UpdateUserUseCase);
 
-    const updateUser = await updateUserUseCase.execute({
+    const result = await updateUserUseCase.execute({
       id,
       name,
       telephone,
       birthDate,
     });
 
-    return response.status(201).json(updateUser);
+    return response.status(result.statusCode).json(result);
   }
 }
 

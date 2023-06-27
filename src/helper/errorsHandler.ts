@@ -1,6 +1,6 @@
 interface IAppError {
   statusCode?: number;
-  result: "error" | "success";
+  result?: "error";
   message?: string;
 }
 
@@ -9,9 +9,9 @@ export class AppError {
   public readonly result: string;
   public readonly message: string | undefined;
 
-  constructor({ statusCode = 400, result, message }: IAppError) {
+  constructor({ statusCode = 400, message }: IAppError) {
     this.statusCode = statusCode;
-    this.result = result;
+    this.result = "error";
     this.message = message;
   }
 }

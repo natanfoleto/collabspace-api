@@ -1,6 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
 import { IUsersRepositories } from "@/modules/users/iRepositories/IUsersRepositories";
+import { IUuidProvider } from "@/shared/container/providers/uuidProvider/IUuidProvider";
 
 import { IRequestUpdateUser } from "@/modules/users/dtos/users";
 
@@ -16,7 +17,9 @@ interface IRequest extends IRequestUpdateUser {
 class UpdateUserUseCase {
   constructor(
     @inject("UsersRepository")
-    private usersRepository: IUsersRepositories
+    private usersRepository: IUsersRepositories,
+    @inject("UuidProvider")
+    private uuidProvider: IUuidProvider
   ) {}
 
   async execute({
@@ -25,11 +28,16 @@ class UpdateUserUseCase {
     telephone,
     birthDate,
   }: IRequest): Promise<AppResponse> {
+    if (!this.uuidProvider.validateUUID(id)) {
+      throw new AppError({
+        message: "ID inválido!",
+      });
+    }
+
     const listUserById = await this.usersRepository.listById(id);
 
     if (!listUserById) {
       throw new AppError({
-        result: "error",
         message: "Usuário não encontrado!",
       });
     }
@@ -44,7 +52,6 @@ class UpdateUserUseCase {
     });
 
     return new AppResponse({
-      result: "success",
       message: "Usuário atualizado com sucesso!",
     });
   }

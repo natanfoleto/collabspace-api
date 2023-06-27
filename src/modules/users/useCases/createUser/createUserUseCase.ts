@@ -36,21 +36,18 @@ class CreateUserUseCase {
       )
     ) {
       throw new AppError({
-        result: "error",
         message: "Senha fraca!",
       });
     }
 
     if (password !== confirmPassword) {
       throw new AppError({
-        result: "error",
         message: "As senhas não coincidem",
       });
     }
 
     if (email !== confirmEmail) {
       throw new AppError({
-        result: "error",
         message: "Os e-mails não coincidem",
       });
     }
@@ -59,7 +56,6 @@ class CreateUserUseCase {
 
     if (listUserByEmail) {
       throw new AppError({
-        result: "error",
         message: "Usuário já cadastrado!",
       });
     }
@@ -78,7 +74,7 @@ class CreateUserUseCase {
     });
 
     return new AppResponse({
-      result: "success",
+      statusCode: 201,
       message: "Usuário criado com sucesso!",
       data: {
         id: creteUser.id,

@@ -9,11 +9,11 @@ class InactivateUserController {
 
     const inactivateUserUseCase = container.resolve(InactivateUserUseCase);
 
-    const inactivateUser = await inactivateUserUseCase.execute({
+    const result = await inactivateUserUseCase.execute({
       id,
     });
 
-    return response.status(201).json(inactivateUser);
+    return response.status(result.statusCode).json(result);
   }
 }
 
