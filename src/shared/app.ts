@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 import "reflect-metadata";
 import "./container";
 
-import { router } from "../routes";
+import { router } from "@/routes";
 
 import { AppError } from "../helper/errorsHandler";
 
