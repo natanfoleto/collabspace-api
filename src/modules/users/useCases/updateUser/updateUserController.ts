@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
-import { IRequestUpdateUser } from "@/modules/users/dtos/users";
+import { IRequestUpdateUser } from "@modules/users/dtos/users";
 
 import { UpdateUserUseCase } from "./updateUserUseCase";
 

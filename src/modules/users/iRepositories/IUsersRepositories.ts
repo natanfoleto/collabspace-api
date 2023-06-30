@@ -1,4 +1,4 @@
-import { IUsers, ICreateUser, IUpdateUser } from "@/modules/users/dtos/users";
+import { IUsers, ICreateUser, IUpdateUser } from "@modules/users/dtos/users";
 
 interface IUsersRepositories {
   create(user: ICreateUser): Promise<IUsers>;

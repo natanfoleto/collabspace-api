@@ -1,14 +1,14 @@
 import { inject, injectable } from "tsyringe";
 
-import { IUsersRepositories } from "@/modules/users/iRepositories/IUsersRepositories";
-import { IUuidProvider } from "@/shared/container/providers/uuidProvider/IUuidProvider";
+import { IUsersRepositories } from "@modules/users/iRepositories/IUsersRepositories";
+import { IUuidProvider } from "@shared/container/providers/uuidProvider/IUuidProvider";
 
-import { IRequestCreateUser } from "@/modules/users/dtos/users";
+import { IRequestCreateUser } from "@modules/users/dtos/users";
 
-import { IBcryptProvider } from "@/shared/container/providers/bcryptProvider/IBcryptProvider";
-import { TelephoneFormat } from "@/utils/formatData";
-import { AppError } from "@/helper/errorsHandler";
-import { AppResponse } from "@/helper/responseParser";
+import { IBcryptProvider } from "@shared/container/providers/bcryptProvider/IBcryptProvider";
+import { TelephoneFormat } from "@utils/formatData";
+import { AppError } from "@helpers/errorsHandler";
+import { AppResponse } from "@helpers/responseParser";
 
 @injectable()
 class CreateUserUseCase {

@@ -1,10 +1,10 @@
 import { inject, injectable } from "tsyringe";
 
-import { IUsersRepositories } from "@/modules/users/iRepositories/IUsersRepositories";
-import { IUuidProvider } from "@/shared/container/providers/uuidProvider/IUuidProvider";
+import { IUsersRepositories } from "@modules/users/iRepositories/IUsersRepositories";
+import { IUuidProvider } from "@shared/container/providers/uuidProvider/IUuidProvider";
 
-import { AppError } from "@/helper/errorsHandler";
-import { AppResponse } from "@/helper/responseParser";
+import { AppError } from "@helpers/errorsHandler";
+import { AppResponse } from "@helpers/responseParser";
 
 interface IRequest {
   id: string;

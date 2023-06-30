@@ -1,13 +1,13 @@
 import { inject, injectable } from "tsyringe";
 
-import { IUsersRepositories } from "@/modules/users/iRepositories/IUsersRepositories";
-import { IUuidProvider } from "@/shared/container/providers/uuidProvider/IUuidProvider";
+import { IUsersRepositories } from "@modules/users/iRepositories/IUsersRepositories";
+import { IUuidProvider } from "@shared/container/providers/uuidProvider/IUuidProvider";
 
-import { IRequestUpdateUser } from "@/modules/users/dtos/users";
+import { IRequestUpdateUser } from "@modules/users/dtos/users";
 
-import { TelephoneFormat } from "@/utils/formatData";
-import { AppError } from "@/helper/errorsHandler";
-import { AppResponse } from "@/helper/responseParser";
+import { TelephoneFormat } from "@utils/formatData";
+import { AppError } from "@helpers/errorsHandler";
+import { AppResponse } from "@helpers/responseParser";
 
 interface IRequest extends IRequestUpdateUser {
   id: string;
