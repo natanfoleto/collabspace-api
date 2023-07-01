@@ -1,6 +1,5 @@
 interface IAppError {
   statusCode?: number;
-  result?: "error";
   message?: string;
 }
 
