@@ -1,10 +1,9 @@
 import { inject, injectable } from "tsyringe";
 
+import { AppResponse } from "@helpers/responseParser";
 import { IUsersRepositories } from "@modules/users/iRepositories/IUsersRepositories";
 import { IUuidProvider } from "@shared/container/providers/uuidProvider/IUuidProvider";
-
 import { AppError } from "@helpers/errorsHandler";
-import { AppResponse } from "@helpers/responseParser";
 
 interface IRequest {
   id: string;
@@ -13,8 +12,8 @@ interface IRequest {
 @injectable()
 class InactivateUserUseCase {
   constructor(
-    @inject("UsersRepository")
-    private usersRepository: IUsersRepositories,
+    @inject("UserRepository")
+    private userRepository: IUsersRepositories,
     @inject("UuidProvider")
     private uuidProvider: IUuidProvider
   ) {}
@@ -22,11 +21,11 @@ class InactivateUserUseCase {
   async execute({ id }: IRequest): Promise<AppResponse> {
     if (!this.uuidProvider.validateUUID(id)) {
       throw new AppError({
-        message: "ID inválido!",
+        message: "ID é inválido!",
       });
     }
 
-    const listUserById = await this.usersRepository.listById(id);
+    const listUserById = await this.userRepository.listById(id);
 
     if (!listUserById) {
       throw new AppError({
@@ -34,7 +33,7 @@ class InactivateUserUseCase {
       });
     }
 
-    await this.usersRepository.inactivate(id, false);
+    await this.userRepository.inactivate(id, false);
 
     return new AppResponse({
       message: "Usuário inativado com sucesso!",

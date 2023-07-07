@@ -1,8 +1,8 @@
 import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import cors from "cors";
-import helmet from "helmet";
 import dotenv from "dotenv";
+import helmet from "helmet";
 
 import "reflect-metadata";
 import "./container";
@@ -40,3 +40,5 @@ app.use(
 );
 
 export { app };
+
+// REQ -> ROUTES -> CONTROLLER(RES) <-> USECASE <-> REPOSITORY <-> PRISMA <-> DATABASE

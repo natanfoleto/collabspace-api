@@ -1,24 +1,22 @@
 import { inject, injectable } from "tsyringe";
 
+import { IRequestCreateUser } from "@modules/users/dto/users";
+import { telephoneFormat } from "@utils/formatData";
+import { AppResponse } from "@helpers/responseParser";
+import { AppError } from "@helpers/errorsHandler";
 import { IUsersRepositories } from "@modules/users/iRepositories/IUsersRepositories";
 import { IUuidProvider } from "@shared/container/providers/uuidProvider/IUuidProvider";
-
-import { IRequestCreateUser } from "@modules/users/dtos/users";
-
 import { IBcryptProvider } from "@shared/container/providers/bcryptProvider/IBcryptProvider";
-import { TelephoneFormat } from "@utils/formatData";
-import { AppError } from "@helpers/errorsHandler";
-import { AppResponse } from "@helpers/responseParser";
 
 @injectable()
 class CreateUserUseCase {
   constructor(
-    @inject("UsersRepository")
-    private usersRepository: IUsersRepositories,
-    @inject("BcryptProvider")
-    private bcrypt: IBcryptProvider,
+    @inject("UserRepository")
+    private userRepository: IUsersRepositories,
     @inject("UuidProvider")
-    private uuidProvider: IUuidProvider
+    private uuidProvider: IUuidProvider,
+    @inject("BcryptProvider")
+    private bcryptProvider: IBcryptProvider
   ) {}
 
   async execute({
@@ -30,6 +28,12 @@ class CreateUserUseCase {
     telephone,
     birthDate,
   }: IRequestCreateUser): Promise<AppResponse> {
+    if (password !== confirmPassword) {
+      throw new AppError({
+        message: "As senhas não coincidem!",
+      });
+    }
+
     if (
       !password.match(
         /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
@@ -40,19 +44,13 @@ class CreateUserUseCase {
       });
     }
 
-    if (password !== confirmPassword) {
-      throw new AppError({
-        message: "As senhas não coincidem",
-      });
-    }
-
     if (email !== confirmEmail) {
       throw new AppError({
-        message: "Os e-mails não coincidem",
+        message: "Os e-mails não coincidem!",
       });
     }
 
-    const listUserByEmail = await this.usersRepository.listByEmail(email);
+    const listUserByEmail = await this.userRepository.listByEmail(email);
 
     if (listUserByEmail) {
       throw new AppError({
@@ -60,15 +58,13 @@ class CreateUserUseCase {
       });
     }
 
-    const passwordHash = await this.bcrypt.encryptPassword(password);
+    const passwordHash = await this.bcryptProvider.encryptPassword(password);
 
-    const formatTelephone = TelephoneFormat(telephone);
-
-    const creteUser = await this.usersRepository.create({
+    const createUser = await this.userRepository.create({
       id: this.uuidProvider.createUUID(),
       name,
       email,
-      telephone: formatTelephone,
+      telephone: telephoneFormat(telephone),
       birthDate,
       password: passwordHash.hash,
     });
@@ -77,9 +73,11 @@ class CreateUserUseCase {
       statusCode: 201,
       message: "Usuário criado com sucesso!",
       data: {
-        id: creteUser.id,
-        name: creteUser.name,
-        telephone: creteUser.telephone,
+        id: createUser.id,
+        name: createUser.name,
+        email: createUser.email,
+        telephone: createUser.telephone,
+        birthDate: createUser.birth_date,
       },
     });
   }

@@ -1,9 +1,11 @@
-export interface IBcrypt {
+interface IBcrypt {
   salt: string;
   hash: string;
 }
 
-export interface IBcryptProvider {
+interface IBcryptProvider {
   encryptPassword(password: string): Promise<IBcrypt>;
-  checkPassword(password: string, currentPassword: string): Promise<boolean>;
+  checkPassword(password: string, encryptedPassword: string): Promise<boolean>;
 }
+
+export { IBcryptProvider, IBcrypt };

@@ -1,9 +1,9 @@
-import { IUsers, ICreateUser, IUpdateUser } from "@modules/users/dtos/users";
+import { ICreateUser, IUpdateUser, IUser } from "@modules/users/dto/users";
 
 interface IUsersRepositories {
-  create(user: ICreateUser): Promise<IUsers>;
-  listByEmail(email: string): Promise<IUsers | null>;
-  listById(id: string): Promise<IUsers | null>;
+  create(user: ICreateUser): Promise<IUser>;
+  listByEmail(email: string): Promise<IUser | null>;
+  listById(id: string): Promise<IUser | null>;
   update(data: IUpdateUser): Promise<void>;
   inactivate(id: string, status: boolean): Promise<void>;
 }

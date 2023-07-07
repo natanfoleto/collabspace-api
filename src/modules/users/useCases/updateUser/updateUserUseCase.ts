@@ -1,13 +1,11 @@
 import { inject, injectable } from "tsyringe";
 
+import { AppResponse } from "@helpers/responseParser";
+import { IRequestUpdateUser } from "@modules/users/dto/users";
 import { IUsersRepositories } from "@modules/users/iRepositories/IUsersRepositories";
 import { IUuidProvider } from "@shared/container/providers/uuidProvider/IUuidProvider";
-
-import { IRequestUpdateUser } from "@modules/users/dtos/users";
-
-import { TelephoneFormat } from "@utils/formatData";
 import { AppError } from "@helpers/errorsHandler";
-import { AppResponse } from "@helpers/responseParser";
+import { telephoneFormat } from "@utils/formatData";
 
 interface IRequest extends IRequestUpdateUser {
   id: string;
@@ -16,8 +14,8 @@ interface IRequest extends IRequestUpdateUser {
 @injectable()
 class UpdateUserUseCase {
   constructor(
-    @inject("UsersRepository")
-    private usersRepository: IUsersRepositories,
+    @inject("UserRepository")
+    private userRepository: IUsersRepositories,
     @inject("UuidProvider")
     private uuidProvider: IUuidProvider
   ) {}
@@ -30,11 +28,11 @@ class UpdateUserUseCase {
   }: IRequest): Promise<AppResponse> {
     if (!this.uuidProvider.validateUUID(id)) {
       throw new AppError({
-        message: "ID inválido!",
+        message: "ID é inválido!",
       });
     }
 
-    const listUserById = await this.usersRepository.listById(id);
+    const listUserById = await this.userRepository.listById(id);
 
     if (!listUserById) {
       throw new AppError({
@@ -42,12 +40,10 @@ class UpdateUserUseCase {
       });
     }
 
-    const formatTelephone = TelephoneFormat(telephone);
-
-    await this.usersRepository.update({
+    await this.userRepository.update({
       id,
       name,
-      telephone: formatTelephone,
+      telephone: telephoneFormat(telephone),
       birthDate,
     });
 

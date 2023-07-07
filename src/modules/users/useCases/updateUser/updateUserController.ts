@@ -1,8 +1,6 @@
+import { IRequestUpdateUser } from "@modules/users/dto/users";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-
-import { IRequestUpdateUser } from "@modules/users/dtos/users";
-
 import { UpdateUserUseCase } from "./updateUserUseCase";
 
 class UpdateUserController {
@@ -10,9 +8,9 @@ class UpdateUserController {
     const { id } = request.params as { id: string };
     const { name, telephone, birthDate } = request.body as IRequestUpdateUser;
 
-    const updateUserUseCase = container.resolve(UpdateUserUseCase);
+    const updateUseCase = container.resolve(UpdateUserUseCase);
 
-    const result = await updateUserUseCase.execute({
+    const result = await updateUseCase.execute({
       id,
       name,
       telephone,

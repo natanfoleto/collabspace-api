@@ -2,9 +2,9 @@ import "./providers";
 import { container } from "tsyringe";
 
 import { IUsersRepositories } from "@modules/users/iRepositories/IUsersRepositories";
-import { UsersRepository } from "@modules/users/repositories/usersRepository";
+import { UserRepository } from "@modules/users/repositories/UserRepository";
 
 container.registerSingleton<IUsersRepositories>(
-  "UsersRepository",
-  UsersRepository
+  "UserRepository",
+  UserRepository
 );

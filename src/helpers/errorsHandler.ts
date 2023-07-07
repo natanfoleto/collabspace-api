@@ -3,7 +3,7 @@ interface IAppError {
   message?: string;
 }
 
-export class AppError {
+class AppError {
   public readonly statusCode: number;
   public readonly result: string;
   public readonly message: string | undefined;
@@ -14,3 +14,5 @@ export class AppError {
     this.message = message;
   }
 }
+
+export { AppError };

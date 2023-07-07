@@ -4,7 +4,7 @@ interface IAppResponse {
   data?: any;
 }
 
-export class AppResponse {
+class AppResponse {
   public readonly statusCode: number;
   public readonly result: string;
   public readonly message: string | undefined;
@@ -17,3 +17,5 @@ export class AppResponse {
     this.data = data;
   }
 }
+
+export { AppResponse };
