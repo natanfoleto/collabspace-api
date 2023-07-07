@@ -12,7 +12,7 @@ userRoutes.post("/", new CreateUserController().handle);
 
 userRoutes.use(authentication);
 
-userRoutes.put("/:id", new UpdateUserController().handle);
+userRoutes.put("/", new UpdateUserController().handle);
 userRoutes.delete("/:id", new InactivateUserController().handle);
 
 export { userRoutes };

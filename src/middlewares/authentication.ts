@@ -42,6 +42,8 @@ async function authentication(
       });
     }
 
+    request.usrId = listUserById.id;
+
     return next();
   } catch (error) {
     throw new AppError({
