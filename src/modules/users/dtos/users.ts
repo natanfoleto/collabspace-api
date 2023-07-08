@@ -1,4 +1,4 @@
-interface IUsers {
+interface IUser {
   id: string;
   name: string;
   email: string;
@@ -7,6 +7,7 @@ interface IUsers {
   password: string;
   avatar_url: string | null;
   created_at: Date;
+  active: boolean;
 }
 
 interface IRequestCreateUser {
@@ -15,7 +16,7 @@ interface IRequestCreateUser {
   confirmEmail: string;
   password: string;
   confirmPassword: string;
-  telephone: string;
+  telephone: string | null;
   birthDate: string;
 }
 
@@ -23,9 +24,10 @@ interface ICreateUser {
   id: string;
   name: string;
   email: string;
-  telephone: string;
+  telephone?: string | null;
   birthDate: string;
   password: string;
+  avatarUrl?: string;
 }
 
 interface IRequestUpdateUser {
@@ -37,14 +39,14 @@ interface IRequestUpdateUser {
 interface IUpdateUser {
   id: string;
   name?: string;
-  telephone?: string;
+  telephone?: string | null;
   birthDate?: string;
 }
 
 export {
-  IUsers,
-  IRequestCreateUser,
+  IUser,
   ICreateUser,
+  IRequestCreateUser,
   IRequestUpdateUser,
   IUpdateUser,
 };

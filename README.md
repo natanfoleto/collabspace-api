@@ -1,1 +1,0 @@
-# collabspace-api

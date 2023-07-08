@@ -13,6 +13,6 @@ userRoutes.post("/", new CreateUserController().handle);
 userRoutes.use(authentication);
 
 userRoutes.put("/", new UpdateUserController().handle);
-userRoutes.delete("/:id", new InactivateUserController().handle);
+userRoutes.delete("/", new InactivateUserController().handle);
 
 export { userRoutes };
