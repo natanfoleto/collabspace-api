@@ -1,5 +1,5 @@
 import { prisma } from "@libs/prismaClient";
-import { ICreatePost, IPost } from "../dtos/posts";
+import { ICreatePost, IListAllPosts, IPost, IUpdatePost } from "../dtos/posts";
 import { IPostsRepositories } from "../iRepositories/IPostsRepositories";
 
 class PostRepository implements IPostsRepositories {
@@ -18,6 +18,55 @@ class PostRepository implements IPostsRepositories {
         tags,
         visibility,
       },
+    });
+  }
+
+  listById(id: string): Promise<IPost | null> {
+    return prisma.posts.findFirst({
+      where: { id },
+    });
+  }
+
+  listAll(page: number, limit: number): Promise<IListAllPosts[]> {
+    return prisma.posts.findMany({
+      skip: page * limit,
+      take: limit,
+      select: {
+        id: true,
+        user_id: false,
+        content: true,
+        tags: true,
+        visibility: true,
+        published_at: true,
+        users: {
+          select: {
+            id: true,
+            name: true,
+            avatar_url: true,
+          },
+        },
+      },
+    });
+  }
+
+  count(): Promise<number> {
+    return prisma.posts.count();
+  }
+
+  async update({ id, content, tags, visibility }: IUpdatePost): Promise<void> {
+    await prisma.posts.update({
+      where: { id },
+      data: {
+        content,
+        tags,
+        visibility,
+      },
+    });
+  }
+
+  async delete(id: string): Promise<void> {
+    await prisma.posts.delete({
+      where: { id },
     });
   }
 }
