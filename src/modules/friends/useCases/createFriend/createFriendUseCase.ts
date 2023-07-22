@@ -25,7 +25,7 @@ class CreateFriendUseCase {
   async execute({ usrId, targetId }: IRequest): Promise<AppResponse> {
     if (!this.uuidProvider.validateUUID(targetId)) {
       throw new AppError({
-        message: "ID é inválido!",
+        message: "ID inválido!",
       });
     }
 
