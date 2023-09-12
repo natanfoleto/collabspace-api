@@ -81,6 +81,9 @@ class PostRepository implements IPostsRepositories {
           },
         },
         comments: {
+          orderBy: {
+            commented_at: "desc",
+          },
           select: {
             id: true,
             content: true,
