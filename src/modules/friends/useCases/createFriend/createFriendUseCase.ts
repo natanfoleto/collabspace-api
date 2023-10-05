@@ -93,7 +93,7 @@ class CreateFriendUseCase {
       message: "Solicitação enviada com sucesso!",
       data: {
         id: createFriend.id,
-        userId1: createFriend.action_id_1,
+        userId1: createFriend.user_id_1,
         userId2: createFriend.user_id_2,
         actionId1: createFriend.action_id_1,
         actionId2: createFriend.action_id_2,
